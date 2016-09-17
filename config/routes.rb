@@ -1,6 +1,11 @@
-Rails.application.routes.draw do
-   # Api definition
-   namespace :api, defaults: {format: :json}, contraints: {subdomain: 'api'}, path: '/'  do
+require 'api_constraints'
 
-   end
+Rails.application.routes.draw do
+  # Api definition
+  namespace :api, defaults: { format: :json },
+                   contraints: { subdomain: 'api' }, path: '/' do
+     scope module: :v1,
+                  contraints: ApiConstraints.new(version: 1, default: true) do
+     end
+  end
 end
